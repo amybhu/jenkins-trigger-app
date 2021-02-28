@@ -1,0 +1,15 @@
+header{
+    margin: 0;
+    padding: 15px;
+    background-color: cadetblue;
+    display: flex;
+    justify-content: space-around;
+    flex-direction: row;
+    align-items: center;
+    width: auto;
+}
+
+.title {
+    color: lightcyan;
+    font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}

@@ -1,0 +1,82 @@
+- hosts: linux
+  become: yes
+  become_method: sudo
+  remote_user: bhushan
+  
+  tasks: 
+    - name: enable UFW
+      ufw:
+        state: enabled
+
+    - name: Allow port 8080 
+      ufw:
+        rule: allow 
+        port: 80
+        proto: tcp
+
+    - name: Allow port 22
+      ufw: 
+        rule: allow
+        port: 22
+        proto: tcp
+    
+    - name: Adding to sources list 
+      shell: "curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -"
+    
+    - name: Adding to sources list 
+      shell: 'add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"'
+    
+    - name : Update Sources List
+      command: apt-get update
+    
+    # - name: Install Jdk
+    #   apt:
+    #     name: openjdk-11-jdk
+    #     state: present
+    
+    - name: Install docker
+      package:
+        name: docker-ce
+        state: latest
+    
+    - name: Install Docker Module for Python
+      pip:
+        name: docker
+    
+    - name: Start docker service
+      service:
+        name: docker
+        state: started
+    
+    - name: Remove Docker image to clean up
+      docker_image:
+        name: "amybhu/jenkins-trigger-web"
+        tag: latest
+        force: true
+        state: absent 
+
+    - name: Pull default Docker image
+      docker_image:
+        name: "amybhu/jenkins-trigger-web"
+        source: pull
+        state: present
+    
+    - name: Create the react app container
+      docker_container:
+        name: jenkins-trigger-app
+        image: amybhu/jenkins-trigger-web
+        state: present
+        ports:
+        - "80:3000"
+    
+    - name: Start the react app container  
+      docker_container:
+        name: jenkins-trigger-app
+        image: amybhu/jenkins-trigger-web
+        state: started
+        recreate: yes
+        restart: yes
+        ports:
+        - "80:3000"
+        exposed_ports:
+        - 8080

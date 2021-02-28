@@ -1,0 +1,16 @@
+.main {
+  text-align: center;
+  min-height: 100vh;
+}
+
+.container{
+  margin-top: 5%;
+  margin-bottom: 5%;
+  height: 100%;
+  width: 100%;
+}
+
+.row{
+  margin: 0;
+  width: 100%;
+}
