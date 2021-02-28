@@ -23,8 +23,8 @@
     - name: Adding to sources list 
       shell: "curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -"
     
-    - name: Adding to sources list 
-      shell: 'add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"'
+    #- name: Adding to sources list 
+     # shell: 'add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"'
     
     - name : Update Sources List
       command: apt-get update
