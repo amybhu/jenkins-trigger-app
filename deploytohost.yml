@@ -50,21 +50,21 @@
     
     - name: Remove Docker image to clean up
       docker_image:
-        name: "amybhu/jenkins-trigger-web"
+        name: "amartyabhu/jenkins-trigger-web"
         tag: latest
         force: true
         state: absent 
 
     - name: Pull default Docker image
       docker_image:
-        name: "amybhu/jenkins-trigger-web"
+        name: "amartyabhu/jenkins-trigger-web"
         source: pull
         state: present
     
     - name: Create the react app container
       docker_container:
         name: jenkins-trigger-app
-        image: amybhu/jenkins-trigger-web
+        image: amartyabhu/jenkins-trigger-web
         state: present
         ports:
         - "80:3000"
@@ -72,7 +72,7 @@
     - name: Start the react app container  
       docker_container:
         name: jenkins-trigger-app
-        image: amybhu/jenkins-trigger-web
+        image: amartyabhu/jenkins-trigger-web
         state: started
         recreate: yes
         restart: yes
